@@ -3,6 +3,7 @@ package de.janmm14.opmint;
 import de.janmm14.opmint.commands.DeopCommand;
 import de.janmm14.opmint.commands.OpCommand;
 import de.janmm14.opmint.commands.OpListCommand;
+import de.janmm14.opmint.commands.ReloadCommand;
 import de.janmm14.opmint.commands.SetupCommand;
 import io.gomint.plugin.Plugin;
 import io.gomint.plugin.PluginName;
@@ -32,10 +33,6 @@ public class OpMint extends Plugin {
 		registerCommand(new OpCommand(controller));
 		registerCommand(new DeopCommand(controller));
 		registerCommand(new OpListCommand(controller));
-	}
-
-	@Override
-	public void onUninstall() {
-
+		registerCommand(new ReloadCommand(controller));
 	}
 }
