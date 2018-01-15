@@ -46,6 +46,7 @@ public class Controller {
 			return false;
 		}
 		config.getOp().add(entry);
+		saveConfig();
 		return true;
 	}
 
@@ -60,6 +61,7 @@ public class Controller {
 		//noinspection StatementWithEmptyBody
 		while (config.getOp().remove(entry)) {
 		}
+		saveConfig();
 		return removed;
 	}
 
@@ -87,6 +89,7 @@ public class Controller {
 				iterator.remove();
 			}
 		}
+		saveConfig();
 		return playerUuid;
 	}
 
@@ -114,6 +117,7 @@ public class Controller {
 				iterator.remove();
 			}
 		}
+		saveConfig();
 		return name;
 	}
 
