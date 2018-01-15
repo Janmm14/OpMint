@@ -8,5 +8,3 @@ This plugin provides a simple permission system:
 - No permissions (not op)
 
 [Download](https://s.janmm14.de/opmint-ci)
-
-WIP

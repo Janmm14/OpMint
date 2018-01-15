@@ -1,4 +1,4 @@
-package de.janmm14.opmint;
+package de.janmm14.opmint.config;
 
 import com.blackypaw.simpleconfig.SimpleConfig;
 import lombok.Getter;

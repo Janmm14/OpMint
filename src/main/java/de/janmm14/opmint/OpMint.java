@@ -1,5 +1,9 @@
 package de.janmm14.opmint;
 
+import de.janmm14.opmint.commands.DeopCommand;
+import de.janmm14.opmint.commands.OpCommand;
+import de.janmm14.opmint.commands.OpListCommand;
+import de.janmm14.opmint.commands.SetupCommand;
 import io.gomint.plugin.Plugin;
 import io.gomint.plugin.PluginName;
 import io.gomint.plugin.Version;
@@ -11,20 +15,23 @@ import lombok.SneakyThrows;
 public class OpMint extends Plugin {
 
 	@Getter
-	private ConfigAdapter configAdapter;
+	private Controller controller;
 
 	@Override
 	@SneakyThrows
 	public void onInstall() {
-		configAdapter = new ConfigAdapter(this);
-		boolean newInstall = !configAdapter.getConfigFile().exists();
-		configAdapter.initialize();
-		if (configAdapter.getConfig().isSetupEnabled()) {
+		controller = new Controller(this);
+		boolean newInstall = !controller.getConfigFile().exists();
+		controller.initialize();
+		if (controller.getConfig().isSetupEnabled()) {
 			registerCommand(new SetupCommand(this));
 			if (newInstall) {
-				getLogger().info("To gain OP enter /opmintsetup %1$s", configAdapter.getConfig().getConfigSecret());
+				getLogger().info("To gain OP enter /opmintsetup %1$s", controller.getConfig().getConfigSecret());
 			}
 		}
+		registerCommand(new OpCommand(controller));
+		registerCommand(new DeopCommand(controller));
+		registerCommand(new OpListCommand(controller));
 	}
 
 	@Override
