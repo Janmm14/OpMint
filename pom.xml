@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>de.janmm14</groupId>
+    <artifactId>opmint</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.gomint</groupId>
+            <artifactId>gomint-api</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.18</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>janmm14-public</id>
+            <url>https://repo.janmm14.de/repository/public/</url>
+        </repository>
+    </repositories>
+
+    <build>
+        <defaultGoal>clean package</defaultGoal>
+        <finalName>OpMint</finalName>
+    </build>
+
+    <scm>
+        <url>https://github.com/Janmm14/OpMint</url>
+        <connection>scm:git:git://github.com/Janmm14/OpMint.git</connection>
+        <developerConnection>scm:git:git@github.com:Janmm14/OpMint.git</developerConnection>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>janmm14-public-releases</id>
+            <url>https://repo.janmm14.de/repository/public-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>janmm14-public-snapshots</id>
+            <url>https://repo.janmm14.de/repository/public-snapshots/</url>
+        </snapshotRepository>
+        <site>
+            <id>janmm14-ci</id>
+            <url>https://s.janmm14.de/opmint-ci</url>
+        </site>
+        <downloadUrl>https://s.janmm14.de/opmint-ci</downloadUrl>
+    </distributionManagement>
+
+    <ciManagement>
+        <system>jenkins</system>
+        <url>https://s.janmm14.de/opmint-ci</url>
+    </ciManagement>
+
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/Janmm14/OpMint/issues</url>
+    </issueManagement>
+
+    <developers>
+        <developer>
+            <id>janmm14</id>
+            <name>Jan Marian Meyer</name>
+            <roles>
+                <role>developer</role>
+                <role>administrator</role>
+            </roles>
+            <email>opmint_pom@janmm14.de</email>
+            <timezone>1</timezone>
+            <url>https://github.com/Janmm14</url>
+        </developer>
+    </developers>
+
+    <contributors>
+        <contributor>
+            <name>Jan Marian Meyer (Janmm14)</name>
+            <roles>
+                <role>developer</role>
+                <role>administrator</role>
+            </roles>
+            <email>opmint_pom@janmm14.de</email>
+            <timezone>1</timezone>
+            <url>https://github.com/Janmm14</url>
+        </contributor>
+    </contributors>
+</project>
