@@ -41,9 +41,9 @@ public class DeopCommand extends Command {
 			String name = target.getName();
 			UUID playerUuid = target.getUUID();
 			if (controller.removeOp(target)) {
-				return new CommandOutput().success("Successfully removed operator status of %1$s (%2$s).", name, playerUuid);
+				return new CommandOutput().success("Successfully removed operator status of %s (%s).", name, playerUuid);
 			}
-			return new CommandOutput().fail("%1$s (%2$s) is no operator.", name, playerUuid);
+			return new CommandOutput().fail("%s (%s) is no operator.", name, playerUuid);
 		}
 		Object targetUuidObj = args.get("targetUuid");
 		if (targetUuidObj != null && targetUuidObj instanceof String) {
@@ -51,12 +51,12 @@ public class DeopCommand extends Command {
 				UUID playerUuid = UUID.fromString((String) targetUuidObj);
 				String name = controller.removeOp(playerUuid);
 				if (name != null) {
-					return new CommandOutput().success("Successfully removed operator status of %1$s (%2$s).", name, playerUuid);
+					return new CommandOutput().success("Successfully removed operator status of %s (%s).", name, playerUuid);
 				}
-				return new CommandOutput().fail("? (%2$s) is no operator.", playerUuid);
+				return new CommandOutput().fail("? (%s) is no operator.", playerUuid);
 			} catch (IllegalArgumentException e) {
 				controller.getPlugin().getLogger().debug("Command /op executed by " + player.getName() + " failed at uuid parsing, input: " + targetUuidObj, e);
-				return new CommandOutput().fail("Invalid uuid: %1$s", targetUuidObj);
+				return new CommandOutput().fail("Invalid uuid: %s", targetUuidObj);
 			}
 		}
 		Object targetNameObj = args.get("targetName");
@@ -64,9 +64,9 @@ public class DeopCommand extends Command {
 			String name = (String) targetNameObj;
 			UUID playerUuid = controller.removeOp(name);
 			if (playerUuid != null) {
-				return new CommandOutput().success("Successfully removed operator status of %1$s (%2$s).", name, playerUuid);
+				return new CommandOutput().success("Successfully removed operator status of %s (%s).", name, playerUuid);
 			}
-			return new CommandOutput().fail("%1$s (?) is no operator.", name);
+			return new CommandOutput().fail("%s (?) is no operator.", name);
 		}
 		return new CommandOutput().fail("Invalid / no argument provided.");
 	}

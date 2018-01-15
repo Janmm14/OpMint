@@ -27,7 +27,7 @@ public class OpMint extends Plugin {
 		if (controller.getConfig().isSetupEnabled()) {
 			registerCommand(new SetupCommand(this));
 			if (newInstall) {
-				getLogger().info("To gain OP enter /opmintsetup %1$s", controller.getConfig().getConfigSecret());
+				getLogger().info("To gain OP enter /opmintsetup %s", controller.getConfig().getConfigSecret());
 			}
 		}
 		registerCommand(new OpCommand(controller));

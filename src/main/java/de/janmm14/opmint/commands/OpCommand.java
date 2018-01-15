@@ -39,9 +39,9 @@ public class OpCommand extends Command {
 			String name = target.getName();
 			UUID uuid = target.getUUID();
 			if (controller.addOp(target)) {
-				return new CommandOutput().success("Successfully promoted %1$s (%2$s) to operator status.", name, uuid);
+				return new CommandOutput().success("Successfully promoted %s (%s) to operator status.", name, uuid);
 			}
-			return new CommandOutput().fail("%1$s (%2$s) is already operator.", name, uuid);
+			return new CommandOutput().fail("%s (%s) is already operator.", name, uuid);
 		}
 		return new CommandOutput().fail("Invalid / no argument provided.");
 	}
