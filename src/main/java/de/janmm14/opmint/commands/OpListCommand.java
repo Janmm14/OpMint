@@ -29,6 +29,6 @@ public class OpListCommand extends Command {
 		for (OpMintConfigEntry entry : op) {
 			sb.append("§f").append(entry.getLastKnownName()).append(" (").append(entry.getUuid()).append("),\n");
 		}
-		return new CommandOutput().success("%s", sb.substring(0, sb.length() - 1));
+		return new CommandOutput().success(sb.substring(0, sb.length() - 1));
 	}
 }
