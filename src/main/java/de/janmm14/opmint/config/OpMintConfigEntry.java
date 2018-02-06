@@ -4,21 +4,30 @@ import com.blackypaw.simpleconfig.SimpleConfig;
 import io.gomint.entity.EntityPlayer;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.UUID;
 
-@Getter
 @ToString
+@NoArgsConstructor
 @EqualsAndHashCode(of = "uuid", callSuper = false)
-@RequiredArgsConstructor
 public class OpMintConfigEntry extends SimpleConfig {
 
-	private final UUID uuid;
-	private final String lastKnownName;
+	private String uuid;
+	@Getter
+	private String lastKnownName;
+
+	public OpMintConfigEntry(UUID uuid, String lastKnownName) {
+		this.uuid = uuid.toString();
+		this.lastKnownName = lastKnownName;
+	}
 
 	public static OpMintConfigEntry ofPlayer(EntityPlayer player) {
 		return new OpMintConfigEntry(player.getUUID(), player.getName());
+	}
+
+	public UUID getUuid() {
+		return UUID.fromString(this.uuid);
 	}
 }
