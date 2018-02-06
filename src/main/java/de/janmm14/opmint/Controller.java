@@ -29,7 +29,7 @@ public class Controller {
 	public Controller(OpMint plugin) {
 		this.plugin = plugin;
 		File dataFolder = plugin.getDataFolder();
-		if (!dataFolder.mkdirs()) {
+		if (!dataFolder.exists() && !dataFolder.mkdirs()) {
 			throw new RuntimeException("Could no create data folder");
 		}
 		configFile = new File(dataFolder, "config.cfg");
@@ -39,7 +39,7 @@ public class Controller {
 	 * @return {@code true} if the player was no operator before
 	 */
 	public boolean addOp(EntityPlayer player) {
-		player.getPermissionManager().setPermission("*", true);
+		addOpPermission(player);
 		fixLists();
 		OpMintConfigEntry entry = OpMintConfigEntry.ofPlayer(player);
 		if (config.getOp().contains(entry)) {
@@ -50,11 +50,15 @@ public class Controller {
 		return true;
 	}
 
+	private void addOpPermission(EntityPlayer player) {
+		player.getPermissionManager().setPermission("*", true);
+	}
+
 	/**
 	 * @return {@code true} if the player was operator before
 	 */
 	public boolean removeOp(EntityPlayer player) {
-		player.getPermissionManager().removePermission("*");
+		removeOpPermission(player);
 		fixLists();
 		OpMintConfigEntry entry = OpMintConfigEntry.ofPlayer(player);
 		boolean removed = config.getOp().remove(entry);
@@ -63,6 +67,10 @@ public class Controller {
 		}
 		saveConfig();
 		return removed;
+	}
+
+	private void removeOpPermission(EntityPlayer player) {
+		player.getPermissionManager().removePermission("*");
 	}
 
 	/**
@@ -119,6 +127,20 @@ public class Controller {
 		}
 		saveConfig();
 		return name;
+	}
+
+	public void checkOp(EntityPlayer player) {
+		if (getConfigEntry(player.getUUID()) != null) {
+			addOpPermission(player);
+		}
+	}
+
+	private OpMintConfigEntry getConfigEntry(UUID uuid) {
+		return config.getOp().stream().filter(entry -> entry.getUuid().equals(uuid)).findFirst().orElse(null);
+	}
+
+	private OpMintConfigEntry getConfigEntry(String lastKnownName) {
+		return config.getOp().stream().filter(entry -> entry.getLastKnownName().equals(lastKnownName)).findFirst().orElse(null);
 	}
 
 	private void fixLists() {
