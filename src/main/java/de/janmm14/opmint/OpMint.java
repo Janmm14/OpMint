@@ -34,7 +34,7 @@ public class OpMint extends Plugin implements EventListener {
 		if (controller.getConfig().isSetupEnabled()) {
 			registerCommand(new SetupCommand(this));
 			if (newInstall) {
-				getLogger().info("To gain OP enter /opmintsetup %s", controller.getConfig().getConfigSecret());
+				getLogger().info("To gain OP enter /opmintsetup " + controller.getConfig().getConfigSecret());
 			}
 		}
 		registerCommand(new OpCommand(controller));
