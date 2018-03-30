@@ -1,6 +1,6 @@
-package de.janmm14.opmint.config;
+package de.janmm14.opmint.config.json;
 
-import io.gomint.config.YamlConfig;
+import com.blackypaw.simpleconfig.SimpleConfig;
 import io.gomint.entity.EntityPlayer;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -12,19 +12,19 @@ import java.util.UUID;
 @ToString
 @NoArgsConstructor
 @EqualsAndHashCode(of = "uuid", callSuper = false)
-public class OpMintConfigEntry extends YamlConfig {
+public class JsonOpMintConfigEntry extends SimpleConfig {
 
 	private String uuid;
 	@Getter
 	private String lastKnownName;
 
-	public OpMintConfigEntry(UUID uuid, String lastKnownName) {
+	public JsonOpMintConfigEntry(UUID uuid, String lastKnownName) {
 		this.uuid = uuid.toString();
 		this.lastKnownName = lastKnownName;
 	}
 
-	public static OpMintConfigEntry ofPlayer(EntityPlayer player) {
-		return new OpMintConfigEntry(player.getUUID(), player.getName());
+	public static JsonOpMintConfigEntry ofPlayer(EntityPlayer player) {
+		return new JsonOpMintConfigEntry(player.getUUID(), player.getName());
 	}
 
 	public UUID getUuid() {

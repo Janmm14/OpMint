@@ -2,16 +2,18 @@ package de.janmm14.opmint;
 
 import de.janmm14.opmint.config.OpMintConfig;
 import de.janmm14.opmint.config.OpMintConfigEntry;
+import de.janmm14.opmint.config.json.JsonOpMintConfig;
+import de.janmm14.opmint.config.json.JsonOpMintConfigEntry;
 import io.gomint.entity.EntityPlayer;
 import lombok.Getter;
 import lombok.SneakyThrows;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -26,13 +28,33 @@ public class Controller {
 	@Getter
 	private OpMintConfig config = new OpMintConfig();
 
+	@SneakyThrows
 	public Controller(OpMint plugin) {
 		this.plugin = plugin;
 		File dataFolder = plugin.getDataFolder();
 		if (!dataFolder.exists() && !dataFolder.mkdirs()) {
 			throw new RuntimeException("Could no create data folder");
 		}
-		configFile = new File(dataFolder, "config.cfg");
+		configFile = new File(dataFolder, "config.yml");
+		File oldConfigFile = new File(dataFolder, "config.cfg");
+		if (oldConfigFile.exists() && !configFile.exists()) {
+			plugin.getLogger().info("Converting config to new system...");
+			JsonOpMintConfig oldConfig = new JsonOpMintConfig();
+			oldConfig.initialize(oldConfigFile);
+			config.setConfigSecret(oldConfig.getConfigSecret());
+			config.setSetupEnabled(oldConfig.isSetupEnabled());
+			List<JsonOpMintConfigEntry> oldOps = oldConfig.getOp();
+			List<OpMintConfigEntry> ops = config.getOp();
+			for (JsonOpMintConfigEntry entry : oldOps) {
+				ops.add(new OpMintConfigEntry(entry.getUuid(), entry.getLastKnownName()));
+			}
+			plugin.getLogger().info("Renaming old config file...");
+			if (oldConfigFile.renameTo(new File(dataFolder, "config.cfg.old"))) {
+				plugin.getLogger().info("Successfully renamed old config file.");
+			} else {
+				plugin.getLogger().warn("Could not rename old config file.");
+			}
+		}
 	}
 
 	/**
@@ -151,7 +173,7 @@ public class Controller {
 
 	@SneakyThrows
 	public void initialize() {
-		config.initialize(configFile);
+		config.load(configFile);
 		config.setConfigSecret(generateRandomSecret(SECRET_LENGTH));
 		saveConfig();
 		fixLists();
@@ -159,9 +181,7 @@ public class Controller {
 
 	@SneakyThrows
 	public void saveConfig() {
-		FileWriter fileWriter = new FileWriter(configFile);
-		config.write(fileWriter);
-		fileWriter.close();
+		config.save(configFile);
 	}
 
 	@SneakyThrows

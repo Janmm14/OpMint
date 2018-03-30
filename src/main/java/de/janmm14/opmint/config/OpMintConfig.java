@@ -1,6 +1,6 @@
 package de.janmm14.opmint.config;
 
-import com.blackypaw.simpleconfig.SimpleConfig;
+import io.gomint.config.YamlConfig;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class OpMintConfig extends SimpleConfig {
+public class OpMintConfig extends YamlConfig {
 
 	private String configSecret;
 	private boolean setupEnabled = true;

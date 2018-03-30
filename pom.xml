@@ -27,6 +27,12 @@
             <version>1.16.18</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.blackypaw</groupId>
+            <artifactId>simpleconfig</artifactId>
+            <version>1.1.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <repositories>
@@ -39,6 +45,28 @@
     <build>
         <defaultGoal>clean package</defaultGoal>
         <finalName>OpMint</finalName>
+
+        <plugins>
+            <plugin>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <relocations>
+                        <relocation>
+                            <pattern>com.blackypaw.simpleconfig</pattern>
+                            <shadedPattern>de.janmm14.opmint.libs.com.blackypaw.simpleconfig</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
     <scm>
