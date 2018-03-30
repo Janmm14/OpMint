@@ -173,7 +173,7 @@ public class Controller {
 
 	@SneakyThrows
 	public void initialize() {
-		config.load(configFile);
+		config.init(configFile);
 		config.setConfigSecret(generateRandomSecret(SECRET_LENGTH));
 		saveConfig();
 		fixLists();
