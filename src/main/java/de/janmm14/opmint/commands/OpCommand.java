@@ -3,16 +3,8 @@ package de.janmm14.opmint.commands;
 import de.janmm14.opmint.Controller;
 import io.gomint.command.Command;
 import io.gomint.command.CommandOutput;
-import io.gomint.command.annotation.Alias;
-import io.gomint.command.annotation.Description;
-import io.gomint.command.annotation.Name;
-import io.gomint.command.annotation.Overload;
-import io.gomint.command.annotation.Parameter;
-import io.gomint.command.annotation.Permission;
-import io.gomint.command.validator.StringValidator;
 import io.gomint.command.validator.TargetValidator;
 import io.gomint.entity.EntityPlayer;
-import lombok.RequiredArgsConstructor;
 
 import java.util.Map;
 import java.util.UUID;
