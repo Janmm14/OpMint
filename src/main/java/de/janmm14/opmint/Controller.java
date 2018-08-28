@@ -86,6 +86,7 @@ public class Controller {
 		boolean removed = config.getOp().remove(entry);
 		//noinspection StatementWithEmptyBody
 		while (config.getOp().remove(entry)) {
+			//removes fitting entries until no entry is left in the list
 		}
 		saveConfig();
 		return removed;

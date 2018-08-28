@@ -4,7 +4,7 @@ import de.janmm14.opmint.Controller;
 import de.janmm14.opmint.config.OpMintConfigEntry;
 import io.gomint.command.Command;
 import io.gomint.command.CommandOutput;
-import io.gomint.entity.EntityPlayer;
+import io.gomint.command.CommandSender;
 
 import java.util.List;
 import java.util.Map;
@@ -23,7 +23,7 @@ public class OpListCommand extends Command {
 	}
 
 	@Override
-	public CommandOutput execute(EntityPlayer player, String alias, Map<String, Object> args) {
+	public CommandOutput execute(CommandSender sender, String alias, Map<String, Object> args) {
 		List<OpMintConfigEntry> op = controller.getConfig().getOp();
 		StringBuilder sb = new StringBuilder(op.size() * (16 + 36));
 		for (OpMintConfigEntry entry : op) {

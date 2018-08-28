@@ -3,6 +3,7 @@ package de.janmm14.opmint.commands;
 import de.janmm14.opmint.Controller;
 import io.gomint.command.Command;
 import io.gomint.command.CommandOutput;
+import io.gomint.command.CommandSender;
 import io.gomint.command.validator.StringValidator;
 import io.gomint.command.validator.TargetValidator;
 import io.gomint.entity.EntityPlayer;
@@ -27,9 +28,9 @@ public class DeopCommand extends Command {
 	}
 
 	@Override
-	public CommandOutput execute(EntityPlayer player, String alias, Map<String, Object> args) {
+	public CommandOutput execute(CommandSender sender, String alias, Map<String, Object> args) {
 		Object targetPlayerObj = args.get("targetPlayer");
-		if (targetPlayerObj != null && targetPlayerObj instanceof EntityPlayer) {
+		if (targetPlayerObj instanceof EntityPlayer) {
 			EntityPlayer target = (EntityPlayer) targetPlayerObj;
 			String name = target.getName();
 			UUID playerUuid = target.getUUID();
@@ -39,7 +40,7 @@ public class DeopCommand extends Command {
 			return new CommandOutput().fail("%s (%s) is no operator.", name, playerUuid);
 		}
 		Object targetUuidObj = args.get("targetUuid");
-		if (targetUuidObj != null && targetUuidObj instanceof String) {
+		if (targetUuidObj instanceof String) {
 			try {
 				UUID playerUuid = UUID.fromString((String) targetUuidObj);
 				String name = controller.removeOp(playerUuid);
@@ -48,12 +49,16 @@ public class DeopCommand extends Command {
 				}
 				return new CommandOutput().fail("? (%s) is no operator.", playerUuid);
 			} catch (IllegalArgumentException e) {
-				controller.getPlugin().getLogger().debug("Command /op executed by " + player.getName() + " failed at uuid parsing, input: " + targetUuidObj, e);
+				if (sender instanceof EntityPlayer) {
+					controller.getPlugin().getLogger().debug("Command /op executed by " + ((EntityPlayer) sender).getName() + " failed at uuid parsing, input: " + targetUuidObj, e);
+				} else {
+					controller.getPlugin().getLogger().debug("Command /op executed from the console failed at uuid parsing, input: " + targetUuidObj, e);
+				}
 				return new CommandOutput().fail("Invalid uuid: %s", targetUuidObj);
 			}
 		}
 		Object targetNameObj = args.get("targetName");
-		if (targetNameObj != null && targetNameObj instanceof String) {
+		if (targetNameObj instanceof String) {
 			String name = (String) targetNameObj;
 			UUID playerUuid = controller.removeOp(name);
 			if (playerUuid != null) {

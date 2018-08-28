@@ -3,6 +3,7 @@ package de.janmm14.opmint.commands;
 import de.janmm14.opmint.Controller;
 import io.gomint.command.Command;
 import io.gomint.command.CommandOutput;
+import io.gomint.command.CommandSender;
 import io.gomint.command.validator.TargetValidator;
 import io.gomint.entity.EntityPlayer;
 
@@ -24,9 +25,9 @@ public class OpCommand extends Command {
 	}
 
 	@Override
-	public CommandOutput execute(EntityPlayer player, String alias, Map<String, Object> args) {
+	public CommandOutput execute(CommandSender sender, String alias, Map<String, Object> args) {
 		Object targetPlayerObj = args.get("targetPlayer");
-		if (targetPlayerObj != null && targetPlayerObj instanceof EntityPlayer) {
+		if (targetPlayerObj instanceof EntityPlayer) {
 			EntityPlayer target = (EntityPlayer) targetPlayerObj;
 			String name = target.getName();
 			UUID uuid = target.getUUID();
