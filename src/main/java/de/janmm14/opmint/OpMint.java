@@ -19,7 +19,7 @@ import lombok.SneakyThrows;
 
 @Startup(StartupPriority.STARTUP)
 @PluginName("OpMint")
-@Version(major = 0, minor = 1)
+@Version(major = 1, minor = 0)
 public class OpMint extends Plugin implements EventListener {
 
 	@Getter
